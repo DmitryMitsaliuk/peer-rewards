@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import Button from '@material-ui/core/Button';
 import {
     Dialog,
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const RewardsSchema = Yup.object().shape({
     awardedPerson: Yup.string().required('Required'),
-    reward: Yup.number().required('Required'),
+    reward: Yup.number().typeError('reward must be a number').required('Required'),
     comment: Yup.string().min(2, 'Too Short!').max(250, 'Too Long!').required('Required'),
 });
 
@@ -68,14 +68,13 @@ const Modal = ({users, addRewards}) => {
         },
     });
 
-    const handleClickOpen = () => {
+    const handleClickOpen = useCallback(() => {
         setOpen(true);
-    };
+    }, []);
 
-    const handleClose = () => {
+    const handleClose = useCallback(() => {
         setOpen(false);
-    };
-
+    }, [])
 
     return (
         <>
