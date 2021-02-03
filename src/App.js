@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import './App.css';
 import RewardsTabs from './components/RewardsTabs'
 import RewardsHeader from './components/RewardsHeader';
@@ -6,8 +6,7 @@ import Modal from './components/Modal';
 import {distanceInWordsToNow} from './dateHelpers';
 
 
-const users = ['Dasha Kavalenka', 'John Chen', 'David Green', 'Alex Brown', 'Rajesh Kumar'];
-
+const users = ['John Chen', 'David Green', 'Alex Brown', 'Rajesh Kumar'];
 
 const mock = [{
     awardedPerson: 'David Green',
@@ -31,28 +30,38 @@ const mock = [{
 },
 ]
 
+const currentUser = {userName: 'Dasha Kavalenka', userRewards: 1000, userGive: 100};
 
 function App() {
     const [rewards, setRewards] = useState(mock);
-    const currentUser = {userName: 'Dasha Kavalenka', userRewards: 200, userGive: 100};
+    const [user, setUser] = useState(currentUser);
 
-    const userAwards = rewards.filter(({awardedPerson}) => {
-        return awardedPerson === currentUser.userName;
-    });
+    const userAwards = useMemo(() => rewards.filter(({awardedPerson}) => {
+        return awardedPerson === user?.userName;
+    }), [rewards, user.userName])
 
     const addRewards = (reward) => {
         const date = distanceInWordsToNow();
+        const newUserGive = user?.userGive + Number(reward.reward);
+        const newUserRewards = user?.userRewards - Number(reward.reward);
+
         const newReward = {
             ...reward,
             date,
-            giver: currentUser,
+            giver: user?.userName,
+            id: Date.now(),
         }
         setRewards([...rewards, newReward])
+        setUser((user => ({
+            ...user,
+            userGive: newUserGive,
+            userRewards: newUserRewards
+        })))
     }
 
     return (
         <div className="App">
-            <RewardsHeader currentUser={currentUser}/>
+            <RewardsHeader currentUser={user}/>
             <RewardsTabs rewards={rewards} userAwards={userAwards}/>
             <Modal users={users} addRewards={addRewards}/>
         </div>
