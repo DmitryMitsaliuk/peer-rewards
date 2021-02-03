@@ -108,7 +108,7 @@ const Modal = ({ users, addRewards, currentUser }) => {
         {userRewards ? (
           <DialogContent className={classes.content}>
             <DialogContentText>
-              Please select the awardee, add the amount and comment.
+              Please select the rewarded person, add the amount and comment.
             </DialogContentText>
             <form onSubmit={handleSubmit}>
               <TextField
