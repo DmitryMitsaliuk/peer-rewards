@@ -30,8 +30,8 @@ const RewardsPanel = ({rewards}) => {
     return (
         <div>
             <List className={classes.root}>
-                {rewards?.map(({awardedPerson, giver, date, comment}) => (
-                    <div key={date}>
+                {rewards?.map(({awardedPerson, giver, date, id, comment}) => (
+                    <div key={id}>
                         <ListItem alignItems="flex-start">
                             <ListItemAvatar>
                                 <Avatar alt={awardedPerson} src="../assets/avatar.png"/>
