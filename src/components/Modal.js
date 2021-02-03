@@ -55,7 +55,7 @@ const Modal = ({ users, addRewards, currentUser }) => {
       .test(
         'is there enough money',
         `You only have ${userRewards} dollars`,
-        (value) => value < userRewards
+        (value) => value <= userRewards
       )
       .required('Required'),
     comment: Yup.string()
