@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
 const RewardsPanel = ({rewards}) => {
 
     const classes = useStyles();

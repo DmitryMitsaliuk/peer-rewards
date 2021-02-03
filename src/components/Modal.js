@@ -15,7 +15,6 @@ import {useFormik} from 'formik';
 import AddIcon from '@material-ui/icons/Add';
 import * as Yup from 'yup';
 import PropTypes from 'prop-types';
-import RewardsPanel from './RewardsPanel';
 
 const useStyles = makeStyles((theme) => ({
     btn: {
@@ -51,7 +50,7 @@ const RewardsSchema = Yup.object().shape({
     comment: Yup.string().min(2, 'Too Short!').max(250, 'Too Long!').required('Required'),
 });
 
-const FormDialog = ({users, addRewards}) => {
+const Modal = ({users, addRewards}) => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
 
@@ -160,10 +159,10 @@ const FormDialog = ({users, addRewards}) => {
     );
 }
 
-RewardsPanel.propTypes = {
+Modal.propTypes = {
     users: PropTypes.array,
     addRewards: PropTypes.func,
 };
 
 
-export default FormDialog;
+export default Modal;

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import RewardsTabs from './components/RewardsTabs'
 import RewardsHeader from './components/RewardsHeader';
-import FormDialog from './components/Modal';
+import Modal from './components/Modal';
 import {distanceInWordsToNow} from './dateHelpers';
 
 
@@ -32,30 +32,29 @@ const mock = [{
 ]
 
 
-
 function App() {
     const [rewards, setRewards] = useState(mock);
-    const myUser = 'Dasha Kavalenka';
+    const currentUser = {userName: 'Dasha Kavalenka', userRewards: 200, userGive: 100};
 
     const userAwards = rewards.filter(({awardedPerson}) => {
-        return awardedPerson === myUser;
+        return awardedPerson === currentUser.userName;
     });
 
     const addRewards = (reward) => {
-       const date = distanceInWordsToNow();
+        const date = distanceInWordsToNow();
         const newReward = {
             ...reward,
             date,
-            giver: myUser,
+            giver: currentUser,
         }
         setRewards([...rewards, newReward])
     }
 
     return (
         <div className="App">
-            <RewardsHeader userFullName={myUser}/>
+            <RewardsHeader currentUser={currentUser}/>
             <RewardsTabs rewards={rewards} userAwards={userAwards}/>
-            <FormDialog users={users} addRewards={addRewards}/>
+            <Modal users={users} addRewards={addRewards}/>
         </div>
     );
 }

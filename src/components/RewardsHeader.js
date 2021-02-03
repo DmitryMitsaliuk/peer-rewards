@@ -31,28 +31,29 @@ const useStyles = makeStyles((theme) => ({
 
     },
     reward: {
-    fontSize: '20px',
-    color: '#3f51b5',
-    fontWeight: 'bold',
-}
+        fontSize: '20px',
+        color: '#3f51b5',
+        fontWeight: 'bold',
+    }
 
 }));
 
-function RewardsHeader({userFullName = 'Dasha Kavalenka'}) {
+function RewardsHeader({currentUser}) {
+    const {userName, userRewards, userGive} = currentUser;
     const classes = useStyles();
     return (
         <div className={classes.container}>
             <div className={classes.headerSection}>
                 <Avatar alt="Remy Sharp" src={GirlAvatar} className={classes.avatar}/>
-                <h2>{userFullName}</h2>
+                <h2>{userName}</h2>
             </div>
             <div className={classes.headerSection}>
                 <h3>My rewards</h3>
-                <span className={classes.reward}>$200</span>
+                <span className={classes.reward}>{userRewards}</span>
             </div>
             <div className={classes.headerSection}>
                 <h3>Give</h3>
-                <span className={classes.reward}>$100</span>
+                <span className={classes.reward}>{userGive}</span>
             </div>
         </div>
 
