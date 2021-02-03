@@ -40,9 +40,10 @@ const useStyles = makeStyles((theme) => ({
     width: '450px',
   },
   error: {
-    fontSize: '12px',
+    fontSize: '16px',
     color: 'red',
     marginTop: theme.spacing(1),
+    padding: theme.spacing(2)
   },
 }));
 
@@ -145,13 +146,11 @@ const Modal = ({ users, addRewards, currentUser }) => {
                   ),
                 }}
               />
-              {touched.reward &&
-                errors.reward &&
-                values.reward > currentUser.userRewards && (
-                  <Typography className={classes.error}>
-                    {errors.reward}
-                  </Typography>
-                )}
+              {touched.reward && errors.reward && (
+                <Typography className={classes.error}>
+                  {errors.reward}
+                </Typography>
+              )}
               <TextField
                 margin="dense"
                 name="comment"
@@ -184,9 +183,11 @@ const Modal = ({ users, addRewards, currentUser }) => {
             </form>
           </DialogContent>
         ) : (
-          <Typography className={classes.error}>
-            You've run out of your rewards
-          </Typography>
+          <div className={classes.content}>
+            <Typography className={classes.error}>
+              You've run out of your rewards
+            </Typography>
+          </div>
         )}
       </Dialog>
     </>
