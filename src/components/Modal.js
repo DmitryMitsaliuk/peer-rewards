@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   actions: {
-    margin: theme.spacing(3),
+    paddingRight: 0,
   },
   title: {
     borderBottom: '1px solid grey',
@@ -45,18 +45,25 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   },
 }));
-const RewardsSchema = Yup.object().shape({
-  awardedPerson: Yup.string().required('Required'),
-  reward: Yup.number()
-    .typeError('reward must be a number')
-    .required('Required'),
-  comment: Yup.string()
-    .min(2, 'Too Short!')
-    .max(250, 'Too Long!')
-    .required('Required'),
-});
 
-const Modal = ({ users, addRewards }) => {
+const Modal = ({ users, addRewards, currentUser }) => {
+  const { userRewards } = currentUser;
+  const RewardsSchema = Yup.object().shape({
+    awardedPerson: Yup.string().required('Required'),
+    reward: Yup.number()
+      .typeError('reward must be a number')
+      .test(
+        'is there enough money',
+        `You only have ${userRewards} dollars`,
+        (value) => value < userRewards
+      )
+      .required('Required'),
+    comment: Yup.string()
+      .min(2, 'Too Short!')
+      .max(250, 'Too Long!')
+      .required('Required'),
+  });
+
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
@@ -97,80 +104,90 @@ const Modal = ({ users, addRewards }) => {
           Reward
         </DialogTitle>
 
-        <DialogContent className={classes.content}>
-          <DialogContentText>
-            Please select the awardee, add the amount and comment.
-          </DialogContentText>
-          <form onSubmit={handleSubmit}>
-            <TextField
-              name="awardedPerson"
-              select
-              margin="dense"
-              id="to"
-              label="To"
-              value={values.awardedPerson}
-              fullWidth
-              onChange={handleChange}
-            >
-              {users.map((user) => (
-                <MenuItem key={user} value={user}>
-                  {user}
-                </MenuItem>
-              ))}
-            </TextField>
-            {touched.awardedPerson && errors.awardedPerson && (
-              <Typography className={classes.error}>
-                {errors.awardedPerson}
-              </Typography>
-            )}
-            <TextField
-              name="reward"
-              margin="dense"
-              id="Reward"
-              label="Reward"
-              value={values.reward}
-              onChange={handleChange}
-              fullWidth
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="end">$</InputAdornment>
-                ),
-              }}
-            />
-            {touched.reward && errors.reward && (
-              <Typography className={classes.error}>{errors.reward}</Typography>
-            )}
-            <TextField
-              margin="dense"
-              name="comment"
-              id="comment"
-              label="Comment"
-              value={values.comment}
-              onChange={handleChange}
-              multiline
-              rows={4}
-              variant="outlined"
-              fullWidth
-            />
-            {touched.comment && errors.comment && (
-              <Typography className={classes.error}>
-                {errors.comment}
-              </Typography>
-            )}
-            <DialogActions className={classes.actions}>
-              <Button
-                onClick={handleClose}
-                color="secondary"
-                variant="outlined"
+        {userRewards ? (
+          <DialogContent className={classes.content}>
+            <DialogContentText>
+              Please select the awardee, add the amount and comment.
+            </DialogContentText>
+            <form onSubmit={handleSubmit}>
+              <TextField
+                name="awardedPerson"
+                select
+                margin="dense"
+                id="to"
+                label="To"
+                value={values.awardedPerson}
+                fullWidth
+                onChange={handleChange}
               >
-                Cancel
-              </Button>
-              <Button type="submit" color="primary" variant="contained">
-                Reward
-              </Button>
-            </DialogActions>
-          </form>
-        </DialogContent>
+                {users.map((user) => (
+                  <MenuItem key={user} value={user}>
+                    {user}
+                  </MenuItem>
+                ))}
+              </TextField>
+              {touched.awardedPerson && errors.awardedPerson && (
+                <Typography className={classes.error}>
+                  {errors.awardedPerson}
+                </Typography>
+              )}
+              <TextField
+                name="reward"
+                margin="dense"
+                id="Reward"
+                label="Reward"
+                value={values.reward}
+                onChange={handleChange}
+                fullWidth
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="end">$</InputAdornment>
+                  ),
+                }}
+              />
+              {touched.reward &&
+                errors.reward &&
+                values.reward > currentUser.userRewards && (
+                  <Typography className={classes.error}>
+                    {errors.reward}
+                  </Typography>
+                )}
+              <TextField
+                margin="dense"
+                name="comment"
+                id="comment"
+                label="Comment"
+                value={values.comment}
+                onChange={handleChange}
+                multiline
+                rows={4}
+                variant="outlined"
+                fullWidth
+              />
+              {touched.comment && errors.comment && (
+                <Typography className={classes.error}>
+                  {errors.comment}
+                </Typography>
+              )}
+              <DialogActions className={classes.actions}>
+                <Button
+                  onClick={handleClose}
+                  color="secondary"
+                  variant="outlined"
+                >
+                  Cancel
+                </Button>
+                <Button type="submit" color="primary" variant="contained">
+                  Reward
+                </Button>
+              </DialogActions>
+            </form>
+          </DialogContent>
+        ) : (
+          <Typography className={classes.error}>
+            You've run out of your rewards
+          </Typography>
+        )}
       </Dialog>
     </>
   );
@@ -179,6 +196,7 @@ const Modal = ({ users, addRewards }) => {
 Modal.propTypes = {
   users: PropTypes.array,
   addRewards: PropTypes.func,
+  currentUser: PropTypes.object,
 };
 
 export default Modal;
