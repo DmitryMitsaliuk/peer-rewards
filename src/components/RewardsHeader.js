@@ -5,10 +5,6 @@ import Avatar from '@material-ui/core/Avatar';
 import GirlAvatar from '../assets/avatar.png';
 
 
-RewardsHeader.propTypes = {
-    userFullName: PropTypes.string,
-};
-
 const useStyles = makeStyles((theme) => ({
     container: {
         display: 'flex',
@@ -35,10 +31,9 @@ const useStyles = makeStyles((theme) => ({
         color: '#3f51b5',
         fontWeight: 'bold',
     }
-
 }));
 
-function RewardsHeader({currentUser}) {
+const RewardsHeader = ({currentUser}) => {
     const {userName, userRewards, userGive} = currentUser;
     const classes = useStyles();
     return (
@@ -60,4 +55,7 @@ function RewardsHeader({currentUser}) {
     );
 }
 
+RewardsHeader.propTypes = {
+    currentUser: PropTypes.object,
+};
 export default RewardsHeader;
