@@ -22,9 +22,17 @@ You will also see any lint errors in the console.
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-Application created with Create React App
+## Used libraries
+Application created with **Create React App**.
 
-## Application examples
+**Material-UI** - Responsive React components for faster and easier web development. It's well documented.
+
+**Formik** - is a small library that helps with the 3 parts:
+1. Getting values in and out of form state
+2. Validation and error messages
+3. Handling form submission
+
+## Application examples. 
 ### Rewards Feed
 
 ![Rewards Feed](https://image.prntscr.com/image/LWVOywZ0RpqghToIWnUYdQ.png)
