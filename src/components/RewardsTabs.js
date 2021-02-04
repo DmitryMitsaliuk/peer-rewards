@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
+
 import { TabContext, TabPanel } from '@material-ui/lab';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -25,26 +26,26 @@ const RewardsTabs = ({ rewards, userAwards }) => {
   };
 
   return (
-    <Paper className={classes.container} elevation={3}>
-      <TabContext value={value}>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          indicatorColor="primary"
-          textColor="primary"
-          className={classes.tabs}
-        >
-          <Tab label="Feed" value="1" />
-          <Tab label="My rewards" value="2" />
-        </Tabs>
-        <TabPanel value="1">
-          <RewardsPanel rewards={rewards} />
-        </TabPanel>
-        <TabPanel value="2">
-          <RewardsPanel rewards={userAwards} />
-        </TabPanel>
-      </TabContext>
-    </Paper>
+      <Paper className={classes.container} elevation={3}>
+        <TabContext value={value}>
+          <Tabs
+              value={value}
+              onChange={handleChange}
+              indicatorColor="primary"
+              textColor="primary"
+              className={classes.tabs}
+          >
+            <Tab label="Feed" value="1" />
+            <Tab label="My rewards" value="2" />
+          </Tabs>
+          <TabPanel value="1">
+            <RewardsPanel rewards={rewards} />
+          </TabPanel>
+          <TabPanel value="2">
+            <RewardsPanel rewards={userAwards} />
+          </TabPanel>
+        </TabContext>
+      </Paper>
   );
 };
 

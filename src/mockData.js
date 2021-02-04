@@ -1,6 +1,6 @@
 export const users = ['John Chen', 'David Green', 'Alex Brown', 'Rajesh Kumar'];
 
-export const mock = [
+export const mockedRewards = [
     {
         awardedPerson: 'David Green',
         giver: 'John Chen',
