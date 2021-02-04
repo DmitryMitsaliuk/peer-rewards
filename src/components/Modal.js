@@ -104,7 +104,7 @@ const Modal = ({ users, addReward, currentUser }) => {
               <TextField
                 name="awardedPerson"
                 select
-                margin="dense"
+                margin="normal"
                 id="to"
                 label="To"
                 value={values.awardedPerson}
@@ -124,7 +124,7 @@ const Modal = ({ users, addReward, currentUser }) => {
               )}
               <TextField
                 name="reward"
-                margin="dense"
+                margin="normal"
                 id="Reward"
                 label="Reward"
                 value={values.reward}
@@ -142,7 +142,7 @@ const Modal = ({ users, addReward, currentUser }) => {
                 </Typography>
               )}
               <TextField
-                margin="dense"
+                margin="normal"
                 name="comment"
                 id="comment"
                 label="Comment"
