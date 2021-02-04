@@ -6,7 +6,7 @@ import RewardsHeader from './components/RewardsHeader';
 import Modal from './components/Modal';
 
 import { distanceInWordsToNow } from './utils/helpers/dateHelpers';
-import { mockedRewards, currentUser, users } from './mockData';
+import { mockedRewards, currentUser, users } from './mocks/mockData';
 
 const useStyles = makeStyles({
   app: {
@@ -21,11 +21,11 @@ function App() {
   const [user, setUser] = useState(currentUser);
 
   const userAwards = useMemo(
-      () =>
-          rewards.filter(({ awardedPerson }) => {
-            return awardedPerson === user?.userName;
-          }),
-      [rewards, user.userName]
+    () =>
+      rewards.filter(({ awardedPerson }) => {
+        return awardedPerson === user?.userName;
+      }),
+    [rewards, user.userName]
   );
 
   const addReward = (reward) => {
@@ -49,11 +49,11 @@ function App() {
   };
 
   return (
-      <div className={classes.app}>
-        <RewardsHeader currentUser={user} />
-        <RewardsTabs rewards={rewards} userAwards={userAwards} />
-        <Modal currentUser={user} users={users} addReward={addReward} />
-      </div>
+    <div className={classes.app}>
+      <RewardsHeader currentUser={user} />
+      <RewardsTabs rewards={rewards} userAwards={userAwards} />
+      <Modal currentUser={user} users={users} addReward={addReward} />
+    </div>
   );
 }
 

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 
-import Avatar from '@material-ui/core/Avatar';
 import GirlAvatar from '../assets/avatar.png';
 
 const useStyles = makeStyles((theme) => ({
@@ -19,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     width: '70px',
     height: '70px',
     margin: theme.spacing(1),
+    borderRadius: '50%',
   },
   headerSection: {
     display: 'flex',
@@ -37,20 +37,20 @@ const RewardsHeader = ({ currentUser }) => {
   const classes = useStyles();
 
   return (
-      <div className={classes.container}>
-        <div className={classes.headerSection}>
-          <Avatar alt="Remy Sharp" src={GirlAvatar} className={classes.avatar} />
-          <h2>{userName}</h2>
-        </div>
-        <div className={classes.headerSection}>
-          <h3>My rewards</h3>
-          <span className={classes.reward}>{userRewards}</span>
-        </div>
-        <div className={classes.headerSection}>
-          <h3>Give</h3>
-          <span className={classes.reward}>{userGive}</span>
-        </div>
+    <div className={classes.container}>
+      <div className={classes.headerSection}>
+        <img alt="User avatar" src={GirlAvatar} className={classes.avatar} />
+        <h2 data-testid="userName">{userName}</h2>
       </div>
+      <div className={classes.headerSection}>
+        <h3>My rewards</h3>
+        <span className={classes.reward} data-testid="my-rewards">{userRewards}</span>
+      </div>
+      <div className={classes.headerSection}>
+        <h3>Give</h3>
+        <span className={classes.reward} data-testid="give-rewards">{userGive}</span>
+      </div>
+    </div>
   );
 };
 

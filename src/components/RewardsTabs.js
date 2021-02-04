@@ -26,26 +26,26 @@ const RewardsTabs = ({ rewards, userAwards }) => {
   };
 
   return (
-      <Paper className={classes.container} elevation={3}>
-        <TabContext value={value}>
-          <Tabs
-              value={value}
-              onChange={handleChange}
-              indicatorColor="primary"
-              textColor="primary"
-              className={classes.tabs}
-          >
-            <Tab label="Feed" value="1" />
-            <Tab label="My rewards" value="2" />
-          </Tabs>
-          <TabPanel value="1">
-            <RewardsPanel rewards={rewards} />
-          </TabPanel>
-          <TabPanel value="2">
-            <RewardsPanel rewards={userAwards} />
-          </TabPanel>
-        </TabContext>
-      </Paper>
+    <Paper className={classes.container} elevation={3}>
+      <TabContext value={value}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          indicatorColor="primary"
+          textColor="primary"
+          className={classes.tabs}
+        >
+          <Tab label="Feed" value="1" data-testid="feed-tab" />
+          <Tab label="My rewards" value="2" data-testid="my-rewards-tab" />
+        </Tabs>
+        <TabPanel value="1">
+          <RewardsPanel rewards={rewards} />
+        </TabPanel>
+        <TabPanel value="2">
+          <RewardsPanel rewards={userAwards} />
+        </TabPanel>
+      </TabContext>
+    </Paper>
   );
 };
 
